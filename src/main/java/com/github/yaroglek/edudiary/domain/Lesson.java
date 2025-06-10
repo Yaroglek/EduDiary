@@ -22,8 +22,8 @@ public class Lesson {
     @Column(name = "lesson_number", nullable = false)
     private Integer lessonNumber; // от 1 до 10
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "homework")
+    private String homeworkDescription;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "schedule_day_id", nullable = false)
