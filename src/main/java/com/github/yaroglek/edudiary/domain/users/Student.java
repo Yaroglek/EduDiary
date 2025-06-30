@@ -16,7 +16,7 @@ import java.util.Set;
 public class Student extends User {
 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
+    @JoinColumn(name = "class_id")
     private SchoolClass schoolClass;
 
     @ManyToMany(mappedBy = "children")

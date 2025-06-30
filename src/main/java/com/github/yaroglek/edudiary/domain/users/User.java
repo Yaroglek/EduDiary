@@ -7,7 +7,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "users")
 public abstract class User {

@@ -1,4 +1,4 @@
-package com.github.yaroglek.edudiary.extern.dto.users;
+package com.github.yaroglek.edudiary.extern.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
@@ -10,8 +10,6 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class StudentDto extends UserDto<StudentDto> {
-
-    @NotNull
     private Long schoolClassId;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

@@ -1,4 +1,4 @@
-package com.github.yaroglek.edudiary.extern.dto.users;
+package com.github.yaroglek.edudiary.extern.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

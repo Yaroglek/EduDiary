@@ -1,7 +1,7 @@
 package com.github.yaroglek.edudiary.app.service;
 
 import com.github.yaroglek.edudiary.app.repository.ClassSubjectRepository;
-import com.github.yaroglek.edudiary.app.service.users.TeacherService;
+import com.github.yaroglek.edudiary.app.service.user.TeacherService;
 import com.github.yaroglek.edudiary.domain.ClassSubject;
 import com.github.yaroglek.edudiary.domain.SchoolClass;
 import com.github.yaroglek.edudiary.domain.Subject;

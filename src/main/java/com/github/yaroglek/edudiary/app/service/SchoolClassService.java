@@ -1,12 +1,9 @@
 package com.github.yaroglek.edudiary.app.service;
 
-import com.github.yaroglek.edudiary.app.service.users.StudentService;
-import com.github.yaroglek.edudiary.domain.ClassSubject;
+import com.github.yaroglek.edudiary.app.service.user.StudentService;
 import com.github.yaroglek.edudiary.domain.SchoolClass;
 import com.github.yaroglek.edudiary.app.repository.SchoolClassRepository;
-import com.github.yaroglek.edudiary.domain.Subject;
 import com.github.yaroglek.edudiary.domain.users.Student;
-import com.github.yaroglek.edudiary.domain.users.Teacher;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

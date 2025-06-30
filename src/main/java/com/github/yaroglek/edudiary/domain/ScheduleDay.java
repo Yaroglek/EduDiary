@@ -1,19 +1,20 @@
 package com.github.yaroglek.edudiary.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
+@Builder
 @ToString(exclude = {"lessons"})
 @EqualsAndHashCode(exclude = {"lessons"})
 @Entity
 @Table(name = "schedule_day")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ScheduleDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,8 @@ public class ScheduleDay {
     private LocalDate date;
 
     @OneToMany(mappedBy = "scheduleDay", cascade = CascadeType.ALL)
-    private Set<Lesson> lessons = new HashSet<>();
+    @OrderBy("lessonNumber ASC")
+    private List<Lesson> lessons = new ArrayList<>();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "class_id", nullable = false)

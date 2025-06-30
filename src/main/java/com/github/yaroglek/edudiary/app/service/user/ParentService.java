@@ -1,4 +1,4 @@
-package com.github.yaroglek.edudiary.app.service.users;
+package com.github.yaroglek.edudiary.app.service.user;
 
 import com.github.yaroglek.edudiary.app.repository.UserRepository;
 import com.github.yaroglek.edudiary.domain.users.Parent;
