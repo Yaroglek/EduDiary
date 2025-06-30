@@ -1,20 +1,18 @@
 package com.github.yaroglek.edudiary.domain;
 
-import com.github.yaroglek.edudiary.domain.user.Teacher;
+import com.github.yaroglek.edudiary.domain.users.Teacher;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
-import java.util.HashSet;
-import java.util.Set;
+import lombok.*;
 
 @Data
-@ToString(exclude = {"schoolClass", "subject", "teacher", "lessons"})
-@EqualsAndHashCode(exclude = {"schoolClass", "subject", "teacher", "lessons"})
+@Builder
+@ToString(exclude = {"schoolClass", "subject", "teacher"})
+@EqualsAndHashCode(exclude = {"schoolClass", "subject", "teacher"})
 @Entity
 @Table(name = "class_subject",
         uniqueConstraints = @UniqueConstraint(columnNames = {"class_id", "subject_id"}))
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClassSubject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +29,5 @@ public class ClassSubject {
     @ManyToOne(optional = false)
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
-
-    @OneToMany(mappedBy = "classSubject", cascade = CascadeType.ALL)
-    private Set<Lesson> lessons = new HashSet<>();
 }
 

@@ -1,6 +1,6 @@
 package com.github.yaroglek.edudiary.app.repository;
 
-import com.github.yaroglek.edudiary.domain.user.User;
+import com.github.yaroglek.edudiary.domain.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

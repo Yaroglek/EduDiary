@@ -1,26 +1,30 @@
 package com.github.yaroglek.edudiary.domain;
 
-import com.github.yaroglek.edudiary.domain.user.Student;
+import com.github.yaroglek.edudiary.domain.users.Student;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@Builder
 @ToString(exclude = {"students", "classSubjects"})
 @EqualsAndHashCode(exclude = {"students", "classSubjects"})
 @Entity
-@Table(name = "school_class")
+@Table(name = "school_class", uniqueConstraints = @UniqueConstraint(columnNames = {"grade", "literal"}))
+@NoArgsConstructor
+@AllArgsConstructor
 public class SchoolClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, length = 4) // 10A, 3Б
-    private String name;
+    @Column(nullable = false)
+    private Integer grade;
+
+    @Column(nullable = false, length = 1)
+    private String literal;
 
     @OneToMany(mappedBy = "schoolClass")
     private Set<Student> students = new HashSet<>();

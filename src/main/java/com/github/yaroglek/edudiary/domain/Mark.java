@@ -1,24 +1,25 @@
 package com.github.yaroglek.edudiary.domain;
 
-import com.github.yaroglek.edudiary.domain.user.Student;
+import com.github.yaroglek.edudiary.domain.users.Student;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 @Data
+@Builder
 @ToString(exclude = {"lesson", "student"})
 @EqualsAndHashCode(exclude = {"lesson", "student"})
 @Entity
-@Table(name = "mark",
+@Table(name = "marks",
         uniqueConstraints = @UniqueConstraint(columnNames = {"student_id", "lesson_id"}))
+@NoArgsConstructor
+@AllArgsConstructor
 public class Mark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Integer value;
+    private Integer markValue;
 
     @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;

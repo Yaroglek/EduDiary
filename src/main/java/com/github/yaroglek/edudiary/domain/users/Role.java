@@ -1,4 +1,4 @@
-package com.github.yaroglek.edudiary.domain.user;
+package com.github.yaroglek.edudiary.domain.users;
 
 public enum Role {
     STUDENT,

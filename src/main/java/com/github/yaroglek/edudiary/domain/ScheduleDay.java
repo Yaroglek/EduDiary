@@ -19,10 +19,14 @@ public class ScheduleDay {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private LocalDate date;
 
     @OneToMany(mappedBy = "scheduleDay", cascade = CascadeType.ALL)
     private Set<Lesson> lessons = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "class_id", nullable = false)
+    private SchoolClass schoolClass;
 }
 

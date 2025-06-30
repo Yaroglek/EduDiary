@@ -1,4 +1,4 @@
-package com.github.yaroglek.edudiary.domain.user;
+package com.github.yaroglek.edudiary.domain.users;
 
 import com.github.yaroglek.edudiary.domain.ClassSubject;
 import com.github.yaroglek.edudiary.domain.Subject;
@@ -9,18 +9,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@ToString(exclude = {"user", "subjects", "classSubjects"})
-@EqualsAndHashCode(exclude = {"user", "subjects", "classSubjects"})
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = {"subjects", "classSubjects"})
 @Entity
-@Table(name = "teachers")
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToOne(optional = false)
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
-    private User user;
+@DiscriminatorValue("TEACHER")
+public class Teacher extends User {
 
     @ManyToMany
     @JoinTable(
@@ -32,4 +25,9 @@ public class Teacher {
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private Set<ClassSubject> classSubjects = new HashSet<>();
+
+    @Override
+    public Role getRole() {
+        return Role.TEACHER;
+    }
 }

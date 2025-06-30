@@ -1,19 +1,20 @@
 package com.github.yaroglek.edudiary.domain;
 
-import com.github.yaroglek.edudiary.domain.user.Teacher;
+import com.github.yaroglek.edudiary.domain.users.Teacher;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@Builder
 @ToString(exclude = {"teachers", "classSubjects"})
 @EqualsAndHashCode(exclude = {"teachers", "classSubjects"})
 @Entity
 @Table(name = "subject")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
