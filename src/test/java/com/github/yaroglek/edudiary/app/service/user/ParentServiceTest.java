@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -21,6 +22,9 @@ class ParentServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @InjectMocks
     private ParentService parentService;
 
@@ -31,11 +35,14 @@ class ParentServiceTest {
         parent = new Parent();
         parent.setId(1L);
         parent.setUsername("parent1");
+        parent.setPassword("password");
     }
 
     @Test
     void create_shouldSaveParent() {
         when(userRepository.save(parent)).thenReturn(parent);
+        when(passwordEncoder.encode(parent.getPassword())).thenReturn("password");
+
 
         Parent saved = parentService.create(parent);
 

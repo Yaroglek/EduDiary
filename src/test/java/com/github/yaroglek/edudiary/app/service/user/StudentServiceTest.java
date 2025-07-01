@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -21,6 +22,9 @@ class StudentServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @InjectMocks
     private StudentService studentService;
 
@@ -31,11 +35,13 @@ class StudentServiceTest {
         student = new Student();
         student.setId(1L);
         student.setUsername("student1");
+        student.setPassword("password");
     }
 
     @Test
     void create_shouldSaveStudent() {
         when(userRepository.save(student)).thenReturn(student);
+        when(passwordEncoder.encode(student.getPassword())).thenReturn("password");
 
         Student saved = studentService.create(student);
 
