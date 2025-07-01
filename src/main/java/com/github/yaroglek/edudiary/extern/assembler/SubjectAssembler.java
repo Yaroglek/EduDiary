@@ -4,7 +4,7 @@ package com.github.yaroglek.edudiary.extern.assembler;
 import com.github.yaroglek.edudiary.domain.ClassSubject;
 import com.github.yaroglek.edudiary.domain.Subject;
 import com.github.yaroglek.edudiary.domain.users.User;
-import com.github.yaroglek.edudiary.extern.controller.SubjectController;
+import com.github.yaroglek.edudiary.extern.controller.rest.SubjectController;
 import com.github.yaroglek.edudiary.extern.dto.SubjectDto;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

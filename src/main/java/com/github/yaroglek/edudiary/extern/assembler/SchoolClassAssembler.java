@@ -3,7 +3,7 @@ package com.github.yaroglek.edudiary.extern.assembler;
 import com.github.yaroglek.edudiary.domain.ClassSubject;
 import com.github.yaroglek.edudiary.domain.SchoolClass;
 import com.github.yaroglek.edudiary.domain.users.Student;
-import com.github.yaroglek.edudiary.extern.controller.SchoolClassController;
+import com.github.yaroglek.edudiary.extern.controller.rest.SchoolClassController;
 import com.github.yaroglek.edudiary.extern.dto.SchoolClassDto;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

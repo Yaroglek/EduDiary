@@ -3,7 +3,7 @@ package com.github.yaroglek.edudiary.extern.assembler;
 import com.github.yaroglek.edudiary.app.service.ClassSubjectService;
 import com.github.yaroglek.edudiary.domain.Lesson;
 import com.github.yaroglek.edudiary.domain.Mark;
-import com.github.yaroglek.edudiary.extern.controller.LessonController;
+import com.github.yaroglek.edudiary.extern.controller.rest.LessonController;
 import com.github.yaroglek.edudiary.extern.dto.LessonDto;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package com.github.yaroglek.edudiary.extern.assembler.user;
 
 import com.github.yaroglek.edudiary.domain.users.Parent;
 import com.github.yaroglek.edudiary.domain.users.Student;
-import com.github.yaroglek.edudiary.extern.controller.user.ParentController;
+import com.github.yaroglek.edudiary.extern.controller.rest.user.ParentController;
 import com.github.yaroglek.edudiary.extern.dto.user.ParentDto;
 import org.springframework.stereotype.Component;
 

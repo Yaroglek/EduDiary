@@ -1,7 +1,7 @@
 package com.github.yaroglek.edudiary.extern.assembler;
 
 import com.github.yaroglek.edudiary.domain.Mark;
-import com.github.yaroglek.edudiary.extern.controller.MarkController;
+import com.github.yaroglek.edudiary.extern.controller.rest.MarkController;
 import com.github.yaroglek.edudiary.extern.dto.MarkDto;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

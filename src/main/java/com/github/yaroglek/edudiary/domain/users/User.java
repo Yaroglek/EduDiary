@@ -17,8 +17,8 @@ public abstract class User {
     @Column(name = "username", unique = true, nullable = false, length = 50)
     private String username;
 
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "full_name", nullable = false, length = 100)
     private String fullName;

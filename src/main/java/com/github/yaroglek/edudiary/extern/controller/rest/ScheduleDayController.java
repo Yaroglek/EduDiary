@@ -1,4 +1,4 @@
-package com.github.yaroglek.edudiary.extern.controller;
+package com.github.yaroglek.edudiary.extern.controller.rest;
 
 import com.github.yaroglek.edudiary.app.service.ScheduleDayService;
 import com.github.yaroglek.edudiary.domain.ScheduleDay;

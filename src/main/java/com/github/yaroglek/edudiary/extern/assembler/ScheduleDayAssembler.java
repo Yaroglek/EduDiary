@@ -2,7 +2,7 @@ package com.github.yaroglek.edudiary.extern.assembler;
 
 import com.github.yaroglek.edudiary.domain.Lesson;
 import com.github.yaroglek.edudiary.domain.ScheduleDay;
-import com.github.yaroglek.edudiary.extern.controller.ScheduleDayController;
+import com.github.yaroglek.edudiary.extern.controller.rest.ScheduleDayController;
 import com.github.yaroglek.edudiary.extern.dto.ScheduleDayDto;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

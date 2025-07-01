@@ -1,4 +1,4 @@
-package com.github.yaroglek.edudiary.extern.controller;
+package com.github.yaroglek.edudiary.extern.controller.rest;
 
 import com.github.yaroglek.edudiary.app.service.SchoolClassService;
 import com.github.yaroglek.edudiary.domain.SchoolClass;

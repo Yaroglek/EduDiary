@@ -3,7 +3,7 @@ package com.github.yaroglek.edudiary.extern.assembler.user;
 import com.github.yaroglek.edudiary.domain.Mark;
 import com.github.yaroglek.edudiary.domain.users.Parent;
 import com.github.yaroglek.edudiary.domain.users.Student;
-import com.github.yaroglek.edudiary.extern.controller.user.StudentController;
+import com.github.yaroglek.edudiary.extern.controller.rest.user.StudentController;
 import com.github.yaroglek.edudiary.extern.dto.user.StudentDto;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.github.yaroglek.edudiary.extern.assembler.user;
 
 import com.github.yaroglek.edudiary.domain.users.Admin;
-import com.github.yaroglek.edudiary.extern.controller.user.AdminController;
+import com.github.yaroglek.edudiary.extern.controller.rest.user.AdminController;
 import com.github.yaroglek.edudiary.extern.dto.user.AdminDto;
 import org.springframework.stereotype.Component;
 
