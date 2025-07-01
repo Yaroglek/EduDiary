@@ -11,64 +11,89 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
-@Slf4j
 @Service
+@Slf4j
 @Transactional
 @RequiredArgsConstructor
 public class SchoolClassService {
+
     private final SchoolClassRepository schoolClassRepository;
     private final StudentService studentService;
 
+    /**
+     * Метод для создания школьного класса
+     * @param schoolClass - объект школьного класса
+     * @return - сохранённый школьный класс
+     */
     public SchoolClass create(SchoolClass schoolClass) {
         if (schoolClass == null) {
             throw new IllegalArgumentException("SchoolClass is null");
         }
 
         SchoolClass saved = schoolClassRepository.save(schoolClass);
-        log.info("Создан школьный класс: {}", saved.getGrade() + saved.getLiteral());
+        log.info("SchoolClass created: {}{}", saved.getGrade(), saved.getLiteral());
         return saved;
     }
 
+    /**
+     * Метод для получения школьного класса по ID
+     * @param id - ID класса
+     * @return - найденный класс
+     */
     public SchoolClass getById(Long id) {
         SchoolClass schoolClass = schoolClassRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("Класс с id={} не найден", id);
+                    log.warn("SchoolClass with id {} not found", id);
                     return new NoSuchElementException("SchoolClass not found");
                 });
 
-        log.info("Получен школьный класс: {}", schoolClass.getGrade() + schoolClass.getLiteral());
+        log.info("SchoolClass with id {} found: {}{}", id, schoolClass.getGrade(), schoolClass.getLiteral());
         return schoolClass;
     }
 
+    /**
+     * Метод для удаления школьного класса по ID
+     * @param id - ID класса
+     */
     public void deleteById(Long id) {
-        log.info("Удаление школьного класса с id={}", id);
+        log.info("SchoolClass with id {} deleted", id);
         schoolClassRepository.deleteById(id);
     }
 
+    /**
+     * Метод для добавления ученика в школьный класс
+     * @param classId - ID класса
+     * @param studentId - ID ученика
+     */
     public void addStudent(Long classId, Long studentId) {
         SchoolClass schoolClass = getById(classId);
         Student student = studentService.getById(studentId);
 
-        if (student.getSchoolClass() != null && student.getSchoolClass().getId().equals(classId)) {
-            log.warn("Ученик {} уже принадлежит классу {}", student.getUsername(), classId);
-            return;
+        if(!schoolClass.getStudents().contains(student)) {
+            schoolClass.getStudents().add(student);
+            student.setSchoolClass(schoolClass);
+            log.info("Student {} added to class {}", student.getUsername(), classId);
+        } else {
+            log.warn("Student {} is already in class {}", student.getUsername(), classId);
         }
-
-        student.setSchoolClass(schoolClass);
-        log.info("Ученик {} добавлен в класс {}", student.getUsername(), classId);
     }
 
+    /**
+     * Метод для удаления ученика из школьного класса
+     * @param classId - ID класса
+     * @param studentId - ID ученика
+     */
     public void removeStudent(Long classId, Long studentId) {
         SchoolClass schoolClass = getById(classId);
         Student student = studentService.getById(studentId);
 
-        if (!schoolClass.getStudents().contains(student)) {
-            log.warn("Ученик {} не состоит в классе {}", student.getUsername(), classId);
-            return;
+        if (schoolClass.getStudents().contains(student)) {
+            schoolClass.getStudents().remove(student);
+            student.setSchoolClass(null);
+            log.info("Student {} removed from class {}", student.getUsername(), classId);
+        } else {
+            log.warn("Student {} is not part of class {}", student.getUsername(), classId);
         }
-
-        student.setSchoolClass(null);
-        log.info("Ученик {} удалён из класса {}", student.getUsername(), classId);
     }
 }
 

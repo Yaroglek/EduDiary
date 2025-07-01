@@ -7,7 +7,6 @@ import com.github.yaroglek.edudiary.extern.dto.MessageDto;
 import com.github.yaroglek.edudiary.extern.dto.SchoolClassDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/classes")
 @RequiredArgsConstructor
 public class SchoolClassController {
+
     private final SchoolClassService schoolClassService;
     private final SchoolClassAssembler schoolClassAssembler;
 
     @PostMapping
     public ResponseEntity<SchoolClassDto> createClass(@Valid @RequestBody SchoolClassDto dto) {
         SchoolClass saved = schoolClassService.create(schoolClassAssembler.toEntity(dto));
-        return new ResponseEntity<>(schoolClassAssembler.toModel(saved), HttpStatus.CREATED);
+        return ResponseEntity.ok(schoolClassAssembler.toModel(saved));
     }
 
     @GetMapping("/{id}")

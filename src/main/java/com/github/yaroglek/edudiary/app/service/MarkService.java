@@ -17,30 +17,47 @@ public class MarkService {
 
     private final MarkRepository markRepository;
 
+    /**
+     * Метод для сохранения новой оценки
+     *
+     * @param mark - оценка для сохранения
+     * @return - сохраненная оценка
+     */
     public Mark create(Mark mark) {
         if (mark == null) {
             throw new IllegalArgumentException("Mark is null");
         }
 
         Mark saved = markRepository.save(mark);
-        log.info("Создана оценка {} ученику {} за урок {}", saved.getMarkValue(),
-                saved.getStudent().getUsername(), saved.getLesson().getId());
+        log.info("Mark with value {} created for student {} and lesson {}",
+                saved.getMarkValue(), saved.getStudent().getUsername(), saved.getLesson().getId());
         return saved;
     }
 
+    /**
+     * Метод для получения оценки по ID
+     *
+     * @param id - ID оценки
+     * @return - найденная оценка
+     */
     public Mark getById(Long id) {
         Mark mark = markRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("Оценка с id={} не найдена", id);
+                    log.warn("Mark with id {} not found", id);
                     return new NoSuchElementException("Mark not found");
                 });
 
-        log.info("Получена оценка id={} значением {}", id, mark.getMarkValue());
+        log.info("Mark with id {} found with value {}", id, mark.getMarkValue());
         return mark;
     }
 
+    /**
+     * Метод для удаления оценки по ID
+     *
+     * @param id - ID оценки
+     */
     public void deleteById(Long id) {
-        log.info("Удаление оценки с id={}", id);
+        log.info("Mark with id {} deleted", id);
         markRepository.deleteById(id);
     }
 }

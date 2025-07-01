@@ -9,6 +9,7 @@ import com.github.yaroglek.edudiary.extern.dto.SubjectDto;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Component
@@ -34,6 +35,8 @@ public class SubjectAssembler extends RepresentationModelAssemblerSupport<Subjec
     public Subject toEntity(SubjectDto dto) {
         return Subject.builder()
                 .name(dto.getName())
+                .teachers(new HashSet<>())
+                .classSubjects(new HashSet<>())
                 .build();
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.hateoas.RepresentationModel;
 
 @Data
@@ -14,8 +15,7 @@ public class MarkDto extends RepresentationModel<MarkDto> {
     private Long id;
 
     @NotNull
-    @Min(1)
-    @Max(5)
+    @Range(min = 1, max = 5)
     private Integer markValue;
 
     @Size(max = 500)

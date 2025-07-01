@@ -1,5 +1,6 @@
 package com.github.yaroglek.edudiary.extern.assembler;
 
+import com.github.yaroglek.edudiary.domain.ClassSubject;
 import com.github.yaroglek.edudiary.domain.SchoolClass;
 import com.github.yaroglek.edudiary.domain.users.Student;
 import com.github.yaroglek.edudiary.extern.controller.SchoolClassController;
@@ -21,12 +22,17 @@ public class SchoolClassAssembler extends RepresentationModelAssemblerSupport<Sc
     @Override
     public SchoolClassDto toModel(SchoolClass entity) {
         SchoolClassDto dto = instantiateModel(entity);
+
         dto.setId(entity.getId());
         dto.setGrade(entity.getGrade());
         dto.setLiteral(entity.getLiteral());
         dto.setStudentIds(entity.getStudents().stream()
                 .map(Student::getId)
                 .collect(Collectors.toSet()));
+        dto.setClassSubjectIds(entity.getClassSubjects().stream()
+                .map(ClassSubject::getId)
+                .collect(Collectors.toSet()));
+
         return dto;
     }
 

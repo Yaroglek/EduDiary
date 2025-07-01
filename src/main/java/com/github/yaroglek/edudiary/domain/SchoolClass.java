@@ -9,21 +9,21 @@ import java.util.Set;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = {"students", "classSubjects"})
 @EqualsAndHashCode(exclude = {"students", "classSubjects"})
 @Entity
 @Table(name = "school_class", uniqueConstraints = @UniqueConstraint(columnNames = {"grade", "literal"}))
-@NoArgsConstructor
-@AllArgsConstructor
 public class SchoolClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "grade", nullable = false)
     private Integer grade;
 
-    @Column(nullable = false, length = 1)
+    @Column(name = "literal", nullable = false, length = 1, columnDefinition = "CHAR")
     private String literal;
 
     @OneToMany(mappedBy = "schoolClass")

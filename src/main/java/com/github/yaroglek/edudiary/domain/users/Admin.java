@@ -6,11 +6,9 @@ import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Builder
 @ToString(callSuper = true)
 @Entity
 @DiscriminatorValue("ADMIN")
-@AllArgsConstructor
 public class Admin extends User {
     @Override
     public Role getRole() {

@@ -17,29 +17,43 @@ public class StudentService {
 
     private final UserRepository userRepository;
 
+    /**
+     * Метод для сохранения пользователя-ученика
+     * @param student - ученик для сохранения
+     * @return - сохраненный ученик
+     */
     public Student create(Student student) {
         if (student == null) {
             throw new IllegalArgumentException("Student is null");
         }
 
         Student saved = userRepository.save(student);
-        log.info("Создан ученик: {}", saved.getUsername());
+        log.info("Student with id {} created: {}", saved.getId(), saved.getUsername());
         return saved;
     }
 
+    /**
+     * Метод для получения ученика по ID
+     * @param id - ID ученика
+     * @return - найденный ученик
+     */
     public Student getById(Long id) {
         Student student = (Student) userRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("Ученик с id={} не найден", id);
+                    log.warn("Student with id {} not found", id);
                     return new NoSuchElementException("Student not found");
                 });
 
-        log.info("Получен ученик: {}", student.getUsername());
+        log.info("Student with id {} found: {}", student.getId(), student.getUsername());
         return student;
     }
 
+    /**
+     * Метод для удаления ученика по ID
+     * @param id - ID ученика
+     */
     public void deleteById(Long id) {
-        log.info("Удаление ученика с id={}", id);
+        log.info("Student with id {} deleted", id);
         userRepository.deleteById(id);
     }
 }

@@ -3,10 +3,10 @@ package com.github.yaroglek.edudiary.extern.controller.user;
 import com.github.yaroglek.edudiary.app.service.user.StudentService;
 import com.github.yaroglek.edudiary.domain.users.Student;
 import com.github.yaroglek.edudiary.extern.assembler.user.StudentAssembler;
+import com.github.yaroglek.edudiary.extern.dto.MessageDto;
 import com.github.yaroglek.edudiary.extern.dto.user.StudentDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +20,8 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<StudentDto> create(@Valid @RequestBody StudentDto dto) {
-        Student student = studentAssembler.toEntity(dto);
-        Student saved = studentService.create(student);
-        return new ResponseEntity<>(studentAssembler.toModel(saved), HttpStatus.CREATED);
+        Student saved = studentService.create(studentAssembler.toEntity(dto));
+        return ResponseEntity.ok(studentAssembler.toModel(saved));
     }
 
     @GetMapping("/{id}")
@@ -32,8 +31,8 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<MessageDto> delete(@PathVariable Long id) {
         studentService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new MessageDto("Student with ID " + id + " deleted"));
     }
 }

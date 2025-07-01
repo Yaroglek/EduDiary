@@ -18,7 +18,9 @@ public class AdminService {
     private final UserRepository userRepository;
 
     /**
-     * Создание администратора.
+     * Метод для сохранения пользователя-администратора
+     * @param admin - администратор для сохранения
+     * @return - сохраненный администратор
      */
     public Admin create(Admin admin) {
         if (admin == null) {
@@ -26,29 +28,32 @@ public class AdminService {
         }
 
         Admin saved = userRepository.save(admin);
-        log.info("Создан администратор: {}", saved.getUsername());
+        log.info("Admin with id {} created: {}", saved.getId(), saved.getUsername());
         return saved;
     }
 
     /**
-     * Получение администратора по ID.
+     * Метод для получения администратора по ID
+     * @param id - ID администратора
+     * @return - найденный администратор
      */
     public Admin getById(Long id) {
         Admin admin = (Admin) userRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("Администратор с id={} не найден", id);
+                    log.warn("Admin with id {} not found", id);
                     return new NoSuchElementException("Admin not found");
                 });
 
-        log.info("Получен администратор: {}", admin.getUsername());
+        log.info("Admin with id {} found: {}", admin.getId(), admin.getUsername());
         return admin;
     }
 
     /**
-     * Удаление администратора по ID.
+     * Метод для удаления администратора по ID
+     * @param id - ID администратора
      */
     public void deleteById(Long id) {
-        log.info("Удаление администратора с id={}", id);
+        log.info("Admin with id {} deleted", id);
         userRepository.deleteById(id);
     }
 }

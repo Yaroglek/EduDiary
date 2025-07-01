@@ -24,6 +24,14 @@ public class ClassSubjectService {
     private final SubjectService subjectService;
     private final TeacherService teacherService;
 
+    /**
+     * Метод для назначения предмета определённому классу с указанным учителем
+     *
+     * @param classId   ID класса
+     * @param subjectId ID предмета
+     * @param teacherId ID учителя
+     * @return созданная связь ClassSubject
+     */
     public ClassSubject assignSubjectToClass(Long classId, Long subjectId, Long teacherId) {
         SchoolClass schoolClass = schoolClassService.getById(classId);
         Subject subject = subjectService.getById(subjectId);
@@ -31,7 +39,7 @@ public class ClassSubjectService {
 
         boolean exists = classSubjectRepository.existsBySchoolClassAndSubject(schoolClass, subject);
         if (exists) {
-            log.warn("Связь предмета {} с классом {} уже существует", subject.getName(), classId);
+            log.warn("ClassSubject already exists for subject {} and class {}", subject.getName(), classId);
             throw new IllegalStateException("ClassSubject already exists");
         }
 
@@ -42,63 +50,84 @@ public class ClassSubjectService {
                 .build();
 
         ClassSubject saved = classSubjectRepository.save(classSubject);
-        log.info("Связь предмета {} с классом {} и учителем {} создана",
+        log.info("ClassSubject created: subject {} for class {} with teacher {}",
                 subject.getName(), schoolClass.getGrade() + schoolClass.getLiteral(), teacher.getUsername());
 
         return saved;
     }
 
+    /**
+     * Метод для удаления связи предмета с классом
+     *
+     * @param classId   ID класса
+     * @param subjectId ID предмета
+     */
     public void removeSubjectFromClass(Long classId, Long subjectId) {
         SchoolClass schoolClass = schoolClassService.getById(classId);
         Subject subject = subjectService.getById(subjectId);
 
-        ClassSubject cs = classSubjectRepository
-                .findBySchoolClassAndSubject(schoolClass, subject)
-                .orElseThrow(() -> new NoSuchElementException("ClassSubject not found"));
+        ClassSubject cs = classSubjectRepository.findBySchoolClassAndSubject(schoolClass, subject)
+                .orElseThrow(() -> {
+                    log.warn("ClassSubject not found for classId {} and subjectId {}", classId, subjectId);
+                    return new NoSuchElementException("ClassSubject not found");
+                });
 
-        log.info("Удаление связи предмета {} с классом {}", subject.getName(), classId);
         classSubjectRepository.delete(cs);
+        log.info("ClassSubject deleted: subject {} removed from class {}", subject.getName(), classId);
     }
 
+    /**
+     * Метод для обновления учителя для предмета в конкретном классе
+     *
+     * @param classId      ID класса
+     * @param subjectId    ID предмета
+     * @param newTeacherId ID нового учителя
+     * @return обновлённый объект ClassSubject
+     */
     public ClassSubject updateTeacher(Long classId, Long subjectId, Long newTeacherId) {
         SchoolClass schoolClass = schoolClassService.getById(classId);
         Subject subject = subjectService.getById(subjectId);
         Teacher newTeacher = teacherService.getById(newTeacherId);
 
-        ClassSubject classSubject = classSubjectRepository
-                .findBySchoolClassAndSubject(schoolClass, subject)
+        ClassSubject classSubject = classSubjectRepository.findBySchoolClassAndSubject(schoolClass, subject)
                 .orElseThrow(() -> {
-                    log.warn("Связь classId={}, subjectId={} не найдена", classId, subjectId);
+                    log.warn("ClassSubject not found for classId {} and subjectId {}", classId, subjectId);
                     return new NoSuchElementException("ClassSubject not found");
                 });
 
         Teacher oldTeacher = classSubject.getTeacher();
         classSubject.setTeacher(newTeacher);
 
-        log.info("Для класса {} и предмета {} учитель изменён: {} → {}",
-                classId + subject.getName(),
-                subject.getName(),
-                oldTeacher.getUsername(),
-                newTeacher.getUsername());
+        log.info("Teacher updated for subject {} in class {}: {} -> {}",
+                subject.getName(), classId, oldTeacher.getUsername(), newTeacher.getUsername());
 
         return classSubject;
     }
 
-
+    /**
+     * Метод для получения связи ClassSubject по ID
+     *
+     * @param id - ID ClassSubject
+     * @return найденный ClassSubject
+     */
     public ClassSubject getById(Long id) {
         ClassSubject cs = classSubjectRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("ClassSubject с id={} не найден", id);
+                    log.warn("ClassSubject with id {} not found", id);
                     return new NoSuchElementException("ClassSubject not found");
                 });
 
-        log.info("Получена связь ClassSubject id={}", cs.getId());
+        log.info("ClassSubject with id {} found", cs.getId());
         return cs;
     }
 
+    /**
+     * Метод для удаления ClassSubject по ID
+     *
+     * @param id - ID ClassSubject
+     */
     public void deleteById(Long id) {
-        log.info("Удаление ClassSubject с id={}", id);
+        log.info("ClassSubject with id {} deleted", id);
         classSubjectRepository.deleteById(id);
     }
 }
-

@@ -6,13 +6,13 @@ import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = {"schoolClass", "subject", "teacher"})
 @EqualsAndHashCode(exclude = {"schoolClass", "subject", "teacher"})
 @Entity
 @Table(name = "class_subject",
         uniqueConstraints = @UniqueConstraint(columnNames = {"class_id", "subject_id"}))
-@NoArgsConstructor
-@AllArgsConstructor
 public class ClassSubject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

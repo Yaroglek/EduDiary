@@ -6,19 +6,19 @@ import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = {"lesson", "student"})
 @EqualsAndHashCode(exclude = {"lesson", "student"})
 @Entity
 @Table(name = "marks",
         uniqueConstraints = @UniqueConstraint(columnNames = {"student_id", "lesson_id"}))
-@NoArgsConstructor
-@AllArgsConstructor
 public class Mark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "mark_value", nullable = false)
     private Integer markValue;
 
     @Column(name = "comment", columnDefinition = "TEXT")

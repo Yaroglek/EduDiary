@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.Set;
@@ -16,15 +17,17 @@ public class SchoolClassDto extends RepresentationModel<SchoolClassDto> {
     private Long id;
 
     @NotNull
-    @Min(1)
-    @Max(11)
+    @Range(min = 1, max = 11)
     private Integer grade;
 
     @NotBlank
-    @Size(min = 1, max = 2)
+    @Size(min = 1, max = 1)
     private String literal;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Set<Long> studentIds;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Set<Long> classSubjectIds;
 }
 

@@ -20,19 +20,21 @@ public class ScheduleDayAssembler extends RepresentationModelAssemblerSupport<Sc
     @Override
     public ScheduleDayDto toModel(ScheduleDay entity) {
         ScheduleDayDto dto = instantiateModel(entity);
+
         dto.setId(entity.getId());
         dto.setDate(entity.getDate());
         dto.setSchoolClassId(entity.getSchoolClass().getId());
         dto.setLessonIds(entity.getLessons().stream()
                 .map(Lesson::getId)
                 .collect(Collectors.toSet()));
+        
         return dto;
     }
 
     @Override
     public ScheduleDay toEntity(ScheduleDayDto dto) {
-        ScheduleDay day = new ScheduleDay();
-        day.setDate(dto.getDate());
-        return day;
+        return ScheduleDay.builder()
+                .date(dto.getDate())
+                .build();
     }
 }

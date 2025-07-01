@@ -17,11 +17,13 @@ public class MarkAssembler extends RepresentationModelAssemblerSupport<Mark, Mar
     @Override
     public MarkDto toModel(Mark entity) {
         MarkDto dto = instantiateModel(entity);
+
         dto.setId(entity.getId());
         dto.setMarkValue(entity.getMarkValue());
         dto.setComment(entity.getComment());
         dto.setLessonId(entity.getLesson().getId());
         dto.setStudentId(entity.getStudent().getId());
+
         return dto;
     }
 

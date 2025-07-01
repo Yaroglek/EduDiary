@@ -26,7 +26,7 @@ public abstract class UserAssembler<T extends User, D extends UserDto<D>>
 
     public T toEntity(D dto, T entity) {
         entity.setUsername(dto.getUsername());
-        entity.setPasswordHash(dto.getPassword()); // важно: хэшируй в сервисе
+        entity.setPasswordHash(dto.getPassword());
         entity.setFullName(dto.getFullName());
         entity.setEmail(dto.getEmail());
         return entity;

@@ -8,13 +8,13 @@ import java.util.Set;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = {"scheduleDay", "classSubject", "marks"})
 @EqualsAndHashCode(exclude = {"scheduleDay", "classSubject", "marks"})
 @Entity
 @Table(name = "lesson",
         uniqueConstraints = @UniqueConstraint(columnNames = {"schedule_day_id", "lesson_number", "class_subject_id"}))
-@NoArgsConstructor
-@AllArgsConstructor
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

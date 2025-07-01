@@ -3,10 +3,10 @@ package com.github.yaroglek.edudiary.extern.controller.user;
 import com.github.yaroglek.edudiary.app.service.user.ParentService;
 import com.github.yaroglek.edudiary.domain.users.Parent;
 import com.github.yaroglek.edudiary.extern.assembler.user.ParentAssembler;
+import com.github.yaroglek.edudiary.extern.dto.MessageDto;
 import com.github.yaroglek.edudiary.extern.dto.user.ParentDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +20,8 @@ public class ParentController {
 
     @PostMapping
     public ResponseEntity<ParentDto> create(@Valid @RequestBody ParentDto dto) {
-        Parent Parent = parentAssembler.toEntity(dto);
-        Parent saved = parentService.create(Parent);
-        return new ResponseEntity<>(parentAssembler.toModel(saved), HttpStatus.CREATED);
+        Parent saved = parentService.create(parentAssembler.toEntity(dto));
+        return ResponseEntity.ok(parentAssembler.toModel(saved));
     }
 
     @GetMapping("/{id}")
@@ -32,8 +31,8 @@ public class ParentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<MessageDto> delete(@PathVariable Long id) {
         parentService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new MessageDto("Parent with ID " + id + " deleted"));
     }
 }

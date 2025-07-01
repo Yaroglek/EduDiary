@@ -7,7 +7,6 @@ import com.github.yaroglek.edudiary.extern.dto.MessageDto;
 import com.github.yaroglek.edudiary.extern.dto.SubjectDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/subjects")
 @RequiredArgsConstructor
 public class SubjectController {
+
     private final SubjectService subjectService;
     private final SubjectAssembler subjectAssembler;
 
     @PostMapping
     public ResponseEntity<SubjectDto> createSubject(@Valid @RequestBody SubjectDto dto) {
         Subject saved = subjectService.create(subjectAssembler.toEntity(dto));
-        return new ResponseEntity<>(subjectAssembler.toModel(saved), HttpStatus.CREATED);
+        return ResponseEntity.ok(subjectAssembler.toModel(saved));
     }
 
     @GetMapping("/{id}")
@@ -34,4 +34,17 @@ public class SubjectController {
         subjectService.deleteById(id);
         return ResponseEntity.ok(new MessageDto("Subject with ID " + id + " deleted"));
     }
+
+    @PostMapping("/{subjectId}/teachers/{teacherId}")
+    public ResponseEntity<MessageDto> assignTeacherToSubject(@PathVariable Long subjectId, @PathVariable Long teacherId) {
+        subjectService.assignTeacher(subjectId, teacherId);
+        return ResponseEntity.ok(new MessageDto("Teacher with ID " + teacherId + " assigned to subject " + subjectId));
+    }
+
+    @DeleteMapping("/{subjectId}/teachers/{teacherId}")
+    public ResponseEntity<MessageDto> removeTeacherFromSubject(@PathVariable Long subjectId, @PathVariable Long teacherId) {
+        subjectService.removeTeacher(subjectId, teacherId);
+        return ResponseEntity.ok(new MessageDto("Teacher with ID " + teacherId + " removed from subject " + subjectId));
+    }
+
 }

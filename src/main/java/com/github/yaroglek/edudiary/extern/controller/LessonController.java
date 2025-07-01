@@ -7,7 +7,6 @@ import com.github.yaroglek.edudiary.extern.dto.LessonDto;
 import com.github.yaroglek.edudiary.extern.dto.MessageDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/lessons")
 @RequiredArgsConstructor
 public class LessonController {
+
     private final LessonService lessonService;
     private final LessonAssembler lessonAssembler;
 
@@ -22,7 +22,7 @@ public class LessonController {
     public ResponseEntity<LessonDto> createLesson(@Valid @RequestBody LessonDto lessonDto) {
         Lesson lesson = lessonAssembler.toEntity(lessonDto);
         Lesson saved = lessonService.create(lesson);
-        return new ResponseEntity<>(lessonAssembler.toModel(saved), HttpStatus.CREATED);
+        return ResponseEntity.ok(lessonAssembler.toModel(saved));
     }
 
     @GetMapping("/{id}")

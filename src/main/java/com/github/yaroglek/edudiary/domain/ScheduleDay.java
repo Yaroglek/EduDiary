@@ -9,18 +9,18 @@ import java.util.List;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = {"lessons"})
 @EqualsAndHashCode(exclude = {"lessons"})
 @Entity
 @Table(name = "schedule_day")
-@NoArgsConstructor
-@AllArgsConstructor
 public class ScheduleDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
     @OneToMany(mappedBy = "scheduleDay", cascade = CascadeType.ALL)
