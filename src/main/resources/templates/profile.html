@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Профиль</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/profile}">Профиль</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Профиль пользователя</h1>
+
+    <table>
+        <tr>
+            <th>Имя пользователя:</th>
+            <td th:text="${userDto.username}"></td>
+        </tr>
+        <tr>
+            <th>Полное имя:</th>
+            <td th:text="${userDto.fullName}"></td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td th:text="${userDto.email}"></td>
+        </tr>
+        <tr>
+            <th>Роль:</th>
+            <td th:text="${userDto.role}"></td>
+        </tr>
+    </table>
+
+    <div th:if="${errorMessage}">
+        <p style="color:red;" th:text="${errorMessage}"></p>
+    </div>
+    <div th:if="${successMessage}">
+        <p style="color:green;" th:text="${successMessage}"></p>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 YourSchoolName</p>
+</footer>
+
+</body>
+</html>

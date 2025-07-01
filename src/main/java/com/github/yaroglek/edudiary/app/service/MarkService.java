@@ -53,7 +53,8 @@ public class MarkService {
 
     /**
      * Метод для обновления оценки. Меняется только значение и комментарий.
-     * @param id - ID оценки
+     *
+     * @param id          - ID оценки
      * @param updatedMark - обновленная оценка
      * @return - сохраненная оценка
      */

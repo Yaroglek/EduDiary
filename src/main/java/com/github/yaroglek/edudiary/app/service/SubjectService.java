@@ -22,6 +22,7 @@ public class SubjectService {
 
     /**
      * Метод для создания предмета
+     *
      * @param subject - предмет для сохранения
      * @return - сохранённый предмет
      */
@@ -37,6 +38,7 @@ public class SubjectService {
 
     /**
      * Метод для получения предмета по ID
+     *
      * @param id - ID предмета
      * @return - найденный предмет
      */
@@ -53,6 +55,7 @@ public class SubjectService {
 
     /**
      * Метод для удаления предмета по ID
+     *
      * @param id - ID предмета
      */
     public void deleteById(Long id) {
@@ -62,6 +65,7 @@ public class SubjectService {
 
     /**
      * Метод для привязки учителя к предмету
+     *
      * @param subjectId - ID предмета
      * @param teacherId - ID учителя
      */
@@ -80,6 +84,7 @@ public class SubjectService {
 
     /**
      * Метод для отвязки учителя от предмета
+     *
      * @param subjectId - ID предмета
      * @param teacherId - ID учителя
      */

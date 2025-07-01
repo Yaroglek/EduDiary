@@ -22,6 +22,7 @@ public class SchoolClassService {
 
     /**
      * Метод для создания школьного класса
+     *
      * @param schoolClass - объект школьного класса
      * @return - сохранённый школьный класс
      */
@@ -37,6 +38,7 @@ public class SchoolClassService {
 
     /**
      * Метод для получения школьного класса по ID
+     *
      * @param id - ID класса
      * @return - найденный класс
      */
@@ -53,7 +55,8 @@ public class SchoolClassService {
 
     /**
      * Метод для обновления школьного класса. Обновляются только год и буква.
-     * @param id - ID класса
+     *
+     * @param id           - ID класса
      * @param updatedClass - обновленный класс
      * @return - сохраненный класс
      */
@@ -74,6 +77,7 @@ public class SchoolClassService {
 
     /**
      * Метод для удаления школьного класса по ID
+     *
      * @param id - ID класса
      */
     public void deleteById(Long id) {
@@ -83,14 +87,15 @@ public class SchoolClassService {
 
     /**
      * Метод для добавления ученика в школьный класс
-     * @param classId - ID класса
+     *
+     * @param classId   - ID класса
      * @param studentId - ID ученика
      */
     public void addStudent(Long classId, Long studentId) {
         SchoolClass schoolClass = getById(classId);
         Student student = studentService.getById(studentId);
 
-        if(!schoolClass.getStudents().contains(student)) {
+        if (!schoolClass.getStudents().contains(student)) {
             schoolClass.getStudents().add(student);
             student.setSchoolClass(schoolClass);
             log.info("Student {} added to class {}", student.getUsername(), classId);
@@ -101,7 +106,8 @@ public class SchoolClassService {
 
     /**
      * Метод для удаления ученика из школьного класса
-     * @param classId - ID класса
+     *
+     * @param classId   - ID класса
      * @param studentId - ID ученика
      */
     public void removeStudent(Long classId, Long studentId) {

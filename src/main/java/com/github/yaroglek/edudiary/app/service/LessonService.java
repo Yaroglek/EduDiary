@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -52,7 +55,8 @@ public class LessonService {
 
     /**
      * Метод для обновления урока. Обновляется только описание урока.
-     * @param id - ID урока
+     *
+     * @param id            - ID урока
      * @param updatedLesson - обновленный урок
      * @return - сохраненный урок
      */
@@ -79,5 +83,24 @@ public class LessonService {
         log.info("Lesson with id {} deleted", id);
         lessonRepository.deleteById(id);
     }
+
+    /**
+     * Метод для получения всех уроков у учителя в рамках определенной недели.
+     *
+     * @param teacherId     - ID учителя
+     * @param anyDateInWeek - любая дата нужной недели
+     * @return - список уроков
+     */
+    public List<Lesson> getLessonsForTeacherInWeek(Long teacherId, LocalDate anyDateInWeek) {
+        LocalDate startOfWeek = anyDateInWeek.with(DayOfWeek.MONDAY);
+        LocalDate endOfWeek = anyDateInWeek.with(DayOfWeek.SUNDAY);
+
+        List<Lesson> lessons = lessonRepository.findLessonsForTeacherInWeek(teacherId, startOfWeek, endOfWeek);
+
+        log.info("Found {} lessons for teacher {} in week {} - {}", lessons.size(), teacherId, startOfWeek, endOfWeek);
+        return lessons;
+    }
+
+
 }
 

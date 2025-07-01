@@ -30,12 +30,15 @@ class LessonServiceTest {
 
     @BeforeEach
     void setUp() {
-        lesson = new Lesson();
-        lesson.setId(1L);
-        lesson.setLessonNumber(2);
+        lesson = Lesson.builder()
+                .id(1L)
+                .lessonNumber(2)
+                .build();
 
-        ScheduleDay scheduleDay = new ScheduleDay();
-        scheduleDay.setDate(LocalDate.of(2024, 9, 1));
+        ScheduleDay scheduleDay = ScheduleDay.builder()
+                .date(LocalDate.of(2024, 9, 1))
+                .build();
+
         lesson.setScheduleDay(scheduleDay);
     }
 
@@ -80,4 +83,39 @@ class LessonServiceTest {
         lessonService.deleteById(1L);
         verify(lessonRepository).deleteById(1L);
     }
+
+    @Test
+    void getLessonsForTeacherInWeek_shouldReturnLessonsInWeek() {
+        Long teacherId = 42L;
+        LocalDate anyDate = LocalDate.of(2024, 9, 4);
+
+        LocalDate expectedStart = anyDate.with(java.time.DayOfWeek.MONDAY);
+        LocalDate expectedEnd = anyDate.with(java.time.DayOfWeek.SUNDAY);
+
+        Lesson lesson1 = Lesson.builder()
+                .id(1L)
+                .lessonNumber(1)
+                .scheduleDay(new ScheduleDay())
+                .build();
+        lesson1.getScheduleDay().setDate(LocalDate.of(2024, 9, 2));
+
+        Lesson lesson2 = Lesson.builder()
+                .id(2L)
+                .lessonNumber(2)
+                .scheduleDay(new ScheduleDay())
+                .build();
+        lesson2.getScheduleDay().setDate(LocalDate.of(2024, 9, 5));
+
+        when(lessonRepository.findLessonsForTeacherInWeek(teacherId, expectedStart, expectedEnd))
+                .thenReturn(java.util.List.of(lesson1, lesson2));
+
+        var result = lessonService.getLessonsForTeacherInWeek(teacherId, anyDate);
+
+        assertEquals(2, result.size());
+        assertTrue(result.contains(lesson1));
+        assertTrue(result.contains(lesson2));
+
+        verify(lessonRepository).findLessonsForTeacherInWeek(teacherId, expectedStart, expectedEnd);
+    }
+
 }

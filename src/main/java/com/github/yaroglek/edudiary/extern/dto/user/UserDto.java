@@ -10,7 +10,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class UserDto<T extends UserDto<T>> extends RepresentationModel<T> {
+public class UserDto<T extends UserDto<T>> extends RepresentationModel<T> {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;

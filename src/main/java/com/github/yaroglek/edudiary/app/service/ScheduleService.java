@@ -26,9 +26,9 @@ public class ScheduleService {
     /**
      * Метод для генерации расписания на каждый указанный день недели до конца учебного года.
      *
-     * @param classId         ID класса
-     * @param targetDay       день недели, в который нужно проводить уроки
-     * @param lessonTemplates список шаблонов уроков
+     * @param classId         - ID класса
+     * @param targetDay       - день недели, в который нужно проводить уроки
+     * @param lessonTemplates - список шаблонов уроков
      */
     public void generateWeeklyLessonsUntilYearEnd(Long classId, DayOfWeek targetDay, List<Lesson> lessonTemplates) {
         if (lessonTemplates == null || lessonTemplates.isEmpty()) {

@@ -27,7 +27,7 @@ public class ScheduleDayAssembler extends RepresentationModelAssemblerSupport<Sc
         dto.setLessonIds(entity.getLessons().stream()
                 .map(Lesson::getId)
                 .collect(Collectors.toSet()));
-        
+
         return dto;
     }
 

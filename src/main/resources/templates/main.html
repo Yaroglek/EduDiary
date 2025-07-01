@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Главная страница</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/profile}">Профиль</a></li>
+
+            <!-- Заглушка навигации для роли ADMIN -->
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{/admin/dashboard}">Админка</a>
+            </li>
+
+            <!-- Заглушка навигации для роли TEACHER -->
+            <li th:if="${#authorization.expression('hasRole(''TEACHER'')')}">
+                <a th:href="@{/teacher/courses}">Курсы учителя</a>
+            </li>
+
+            <!-- Заглушка навигации для роли STUDENT -->
+            <li th:if="${#authorization.expression('hasRole(''STUDENT'')')}">
+                <a th:href="@{/student/grades}">Оценки</a>
+            </li>
+
+            <!-- Заглушка навигации для роли PARENT -->
+            <li th:if="${#authorization.expression('hasRole(''PARENT'')')}">
+                <a th:href="@{/parent/children}">Дети</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Добро пожаловать, <span th:text="${#authentication.name}">Пользователь</span>!</h1>
+</main>
+
+<footer>
+    <p>© 2025 EduDiary</p>
+</footer>
+
+</body>
+</html>

@@ -48,7 +48,8 @@ public abstract class GenericUserService<T extends User> {
 
     /**
      * Метод для обновления юзера.
-     * @param id - ID юзера
+     *
+     * @param id          - ID юзера
      * @param updatedUser - обновленный юзер
      * @return - сохраненный юзер
      */

@@ -66,8 +66,8 @@ public class ScheduleDayService {
     /**
      * Метод для получения расписания на всю неделю для определенного класса
      *
-     * @param classId   - ID класса
-     * @param weekDate  - любая дата на требуемой неделе
+     * @param classId  - ID класса
+     * @param weekDate - любая дата на требуемой неделе
      * @return - список всех расписаний на день для данной недели
      */
     public List<ScheduleDay> getByClassAndWeek(Long classId, LocalDate weekDate) {
