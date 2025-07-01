@@ -29,6 +29,12 @@ public class SchoolClassController {
         return ResponseEntity.ok(schoolClassAssembler.toModel(schoolClassService.getById(id)));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<SchoolClassDto> update(@PathVariable Long id, @Valid @RequestBody SchoolClassDto dto) {
+        SchoolClass saved = schoolClassService.update(id, schoolClassAssembler.toEntity(dto));
+        return ResponseEntity.ok(schoolClassAssembler.toModel(saved));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageDto> deleteClass(@PathVariable Long id) {
         schoolClassService.deleteById(id);

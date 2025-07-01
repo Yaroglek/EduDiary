@@ -52,6 +52,27 @@ public class MarkService {
     }
 
     /**
+     * Метод для обновления оценки. Меняется только значение и комментарий.
+     * @param id - ID оценки
+     * @param updatedMark - обновленная оценка
+     * @return - сохраненная оценка
+     */
+    public Mark update(Long id, Mark updatedMark) {
+        if (updatedMark == null) {
+            throw new IllegalArgumentException("Mark is null");
+        }
+
+        Mark existingMark = getById(id);
+
+        existingMark.setMarkValue(updatedMark.getMarkValue());
+        existingMark.setComment(updatedMark.getComment());
+
+        Mark saved = markRepository.save(existingMark);
+        log.info("Mark with id {} updated", saved.getId());
+        return saved;
+    }
+
+    /**
      * Метод для удаления оценки по ID
      *
      * @param id - ID оценки

@@ -46,6 +46,12 @@ public abstract class GenericUserService<T extends User> {
         return tClass.cast(user);
     }
 
+    /**
+     * Метод для обновления юзера.
+     * @param id - ID юзера
+     * @param updatedUser - обновленный юзер
+     * @return - сохраненный юзер
+     */
     public T update(Long id, T updatedUser) {
         if (updatedUser == null) {
             throw new IllegalArgumentException(tClass.getSimpleName() + " is null");

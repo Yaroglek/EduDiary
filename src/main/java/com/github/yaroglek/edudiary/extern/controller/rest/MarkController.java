@@ -31,6 +31,12 @@ public class MarkController {
         return ResponseEntity.ok(markAssembler.toModel(mark));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<MarkDto> update(@PathVariable Long id, @Valid @RequestBody MarkDto dto) {
+        Mark saved = markService.update(id, markAssembler.toEntity(dto));
+        return ResponseEntity.ok(markAssembler.toModel(saved));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageDto> deleteMark(@PathVariable Long id) {
         markService.deleteById(id);

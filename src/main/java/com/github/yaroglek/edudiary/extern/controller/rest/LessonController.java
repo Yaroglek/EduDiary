@@ -31,6 +31,12 @@ public class LessonController {
         return ResponseEntity.ok(lessonAssembler.toModel(lesson));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<LessonDto> update(@PathVariable Long id, @Valid @RequestBody LessonDto dto) {
+        Lesson saved = lessonService.update(id, lessonAssembler.toEntity(dto));
+        return ResponseEntity.ok(lessonAssembler.toModel(saved));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageDto> deleteLesson(@PathVariable Long id) {
         lessonService.deleteById(id);

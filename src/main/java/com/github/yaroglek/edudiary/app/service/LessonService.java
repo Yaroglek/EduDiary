@@ -51,6 +51,26 @@ public class LessonService {
     }
 
     /**
+     * Метод для обновления урока. Обновляется только описание урока.
+     * @param id - ID урока
+     * @param updatedLesson - обновленный урок
+     * @return - сохраненный урок
+     */
+    public Lesson update(Long id, Lesson updatedLesson) {
+        if (updatedLesson == null) {
+            throw new IllegalArgumentException("Lesson is null");
+        }
+
+        Lesson existingLesson = getById(id);
+
+        existingLesson.setHomeworkDescription(updatedLesson.getHomeworkDescription());
+
+        Lesson saved = lessonRepository.save(existingLesson);
+        log.info("Lesson with id {} updated", saved.getId());
+        return saved;
+    }
+
+    /**
      * Метод для удаления урока по ID
      *
      * @param id - ID урока

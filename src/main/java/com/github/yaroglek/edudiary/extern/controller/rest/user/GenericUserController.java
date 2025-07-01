@@ -27,6 +27,12 @@ public abstract class GenericUserController<T extends User, D, S extends Generic
         return ResponseEntity.ok(toModel(found));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<D> update(@PathVariable Long id, @Valid @RequestBody D dto) {
+        T saved = service.update(id, toEntity(dto));
+        return ResponseEntity.ok(toModel(saved));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageDto> delete(@PathVariable Long id) {
         service.deleteById(id);

@@ -52,6 +52,27 @@ public class SchoolClassService {
     }
 
     /**
+     * Метод для обновления школьного класса. Обновляются только год и буква.
+     * @param id - ID класса
+     * @param updatedClass - обновленный класс
+     * @return - сохраненный класс
+     */
+    public SchoolClass update(Long id, SchoolClass updatedClass) {
+        if (updatedClass == null) {
+            throw new IllegalArgumentException("SchoolClass is null");
+        }
+
+        SchoolClass existingClass = getById(id);
+
+        existingClass.setGrade(updatedClass.getGrade());
+        existingClass.setLiteral(updatedClass.getLiteral());
+
+        SchoolClass saved = schoolClassRepository.save(existingClass);
+        log.info("SchoolClass with id {} updated: grade={}, literal={}", saved.getId(), saved.getGrade(), saved.getLiteral());
+        return saved;
+    }
+
+    /**
      * Метод для удаления школьного класса по ID
      * @param id - ID класса
      */
