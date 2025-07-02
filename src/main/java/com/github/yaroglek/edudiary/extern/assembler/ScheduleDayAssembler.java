@@ -13,8 +13,11 @@ import java.util.stream.Collectors;
 public class ScheduleDayAssembler extends RepresentationModelAssemblerSupport<ScheduleDay, ScheduleDayDto>
         implements EntityAssembler<ScheduleDayDto, ScheduleDay> {
 
-    public ScheduleDayAssembler() {
+    private final LessonAssembler lessonAssembler;
+
+    public ScheduleDayAssembler(LessonAssembler lessonAssembler) {
         super(ScheduleDayController.class, ScheduleDayDto.class);
+        this.lessonAssembler = lessonAssembler;
     }
 
     @Override
@@ -24,8 +27,8 @@ public class ScheduleDayAssembler extends RepresentationModelAssemblerSupport<Sc
         dto.setId(entity.getId());
         dto.setDate(entity.getDate());
         dto.setSchoolClassId(entity.getSchoolClass().getId());
-        dto.setLessonIds(entity.getLessons().stream()
-                .map(Lesson::getId)
+        dto.setLessons(entity.getLessons().stream()
+                .map(lessonAssembler::toModel)
                 .collect(Collectors.toSet()));
 
         return dto;

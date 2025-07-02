@@ -30,7 +30,7 @@ public class LessonAssembler extends RepresentationModelAssemblerSupport<Lesson,
         dto.setHomeworkDescription(entity.getHomeworkDescription());
         dto.setScheduleDayId(entity.getScheduleDay().getId());
         dto.setClassSubjectId(entity.getClassSubject().getId());
-        dto.setMarks(entity.getMarks().stream()
+        dto.setMarkIds(entity.getMarks().stream()
                 .map(Mark::getId)
                 .collect(Collectors.toSet()));
 

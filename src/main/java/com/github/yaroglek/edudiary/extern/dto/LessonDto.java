@@ -30,6 +30,6 @@ public class LessonDto extends RepresentationModel<LessonDto> {
     private Long classSubjectId;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Set<Long> marks;
+    private Set<Long> markIds;
 }
 

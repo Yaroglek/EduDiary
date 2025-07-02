@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -99,5 +100,16 @@ public class SubjectService {
         } else {
             log.warn("Teacher {} was not assigned to subject {}", teacher.getUsername(), subject.getName());
         }
+    }
+
+    /**
+     * Метод для нахождения всех предметов.
+     *
+     * @return - все предметы
+     */
+    public List<Subject> getAll() {
+        log.info("Get all subjects");
+
+        return subjectRepository.findAll();
     }
 }

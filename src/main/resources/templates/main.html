@@ -13,24 +13,35 @@
             <li><a th:href="@{/}">Главная</a></li>
             <li><a th:href="@{/profile}">Профиль</a></li>
 
-            <!-- Заглушка навигации для роли ADMIN -->
             <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                <a th:href="@{/admin/dashboard}">Админка</a>
+                <a th:href="@{/admin/users}">Пользователи</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{/admin/subjects}">Предметы</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{/admin/classes}">Классы</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{/admin/schedule}">Расписание</a>
             </li>
 
-            <!-- Заглушка навигации для роли TEACHER -->
             <li th:if="${#authorization.expression('hasRole(''TEACHER'')')}">
-                <a th:href="@{/teacher/courses}">Курсы учителя</a>
+                <a th:href="@{/teacher/schedule/view}">Расписание</a>
             </li>
 
-            <!-- Заглушка навигации для роли STUDENT -->
             <li th:if="${#authorization.expression('hasRole(''STUDENT'')')}">
-                <a th:href="@{/student/grades}">Оценки</a>
+                <a th:href="@{/student/marks/view}">Оценки</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''STUDENT'')')}">
+                <a th:href="@{/student/schedule/view}">Расписание</a>
             </li>
 
-            <!-- Заглушка навигации для роли PARENT -->
             <li th:if="${#authorization.expression('hasRole(''PARENT'')')}">
-                <a th:href="@{/parent/children}">Дети</a>
+                <a th:href="@{/parent/marks/view}">Оценки</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''PARENT'')')}">
+                <a th:href="@{/parent/schedule/view}">Расписание</a>
             </li>
         </ul>
     </nav>

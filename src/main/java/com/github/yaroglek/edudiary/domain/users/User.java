@@ -8,7 +8,15 @@ import lombok.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "users")
+@NoArgsConstructor
 public abstract class User {
+
+    public User(String username, String email, String password, String fullName) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.fullName = fullName;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

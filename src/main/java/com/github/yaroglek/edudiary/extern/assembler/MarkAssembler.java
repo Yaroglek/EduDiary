@@ -1,6 +1,9 @@
 package com.github.yaroglek.edudiary.extern.assembler;
 
+import com.github.yaroglek.edudiary.app.service.LessonService;
+import com.github.yaroglek.edudiary.app.service.user.StudentService;
 import com.github.yaroglek.edudiary.domain.Mark;
+import com.github.yaroglek.edudiary.extern.assembler.user.StudentAssembler;
 import com.github.yaroglek.edudiary.extern.controller.rest.MarkController;
 import com.github.yaroglek.edudiary.extern.dto.MarkDto;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
@@ -10,8 +13,13 @@ import org.springframework.stereotype.Component;
 public class MarkAssembler extends RepresentationModelAssemblerSupport<Mark, MarkDto>
         implements EntityAssembler<MarkDto, Mark> {
 
-    public MarkAssembler() {
+    private final LessonService lessonService;
+    private final StudentService studentService;
+
+    public MarkAssembler(LessonService lessonService, StudentService studentService) {
         super(MarkController.class, MarkDto.class);
+        this.lessonService = lessonService;
+        this.studentService = studentService;
     }
 
     @Override
@@ -31,6 +39,8 @@ public class MarkAssembler extends RepresentationModelAssemblerSupport<Mark, Mar
     public Mark toEntity(MarkDto dto) {
         return Mark.builder()
                 .markValue(dto.getMarkValue())
+                .lesson(lessonService.getById(dto.getLessonId()))
+                .student(studentService.getById(dto.getStudentId()))
                 .comment(dto.getComment())
                 .build();
     }

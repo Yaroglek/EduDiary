@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -121,6 +122,17 @@ public class SchoolClassService {
         } else {
             log.warn("Student {} is not part of class {}", student.getUsername(), classId);
         }
+    }
+
+    /**
+     * Метод для получения всех классов
+     *
+     * @return - список классов
+     */
+    public List<SchoolClass> getAll() {
+        log.info("Get all classes");
+
+        return schoolClassRepository.findAll();
     }
 }
 

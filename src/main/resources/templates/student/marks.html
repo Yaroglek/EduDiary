@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Оценки студента</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <style>
+        .scroll-container {
+            overflow-x: auto;
+            max-width: 100%;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: max-content;
+            min-width: 600px;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 6px 10px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        th {
+            background-color: #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        th:first-child, td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: #fafafa;
+            z-index: 2;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/profile}">Профиль</a></li>
+            <li><a th:href="@{/student/marks/view}">Оценки</a></li>
+            <li><a th:href="@{/student/schedule/view}">Расписание</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Оценки по предметам</h1>
+
+    <div class="scroll-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Предмет</th>
+                <th th:each="date : ${allDates}" th:text="${#temporals.format(date, 'dd.MM.yyyy')}"></th>
+                <th>Средний балл</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entry : ${marksBySubjectAndDate.entrySet()}">
+                <td th:text="${entry.key.name}"></td>
+                <td th:each="date : ${allDates}"
+                    th:text="${entry.value.get(date) != null ? entry.value.get(date).markValue : ''}">
+                </td>
+                <td th:text="${averageMarks[entry.key]}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 EduDiary</p>
+</footer>
+
+</body>
+</html>

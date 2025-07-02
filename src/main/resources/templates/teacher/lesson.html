@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование урока</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/profile}">Профиль</a></li>
+            <li><a th:href="@{/teacher/schedule/view}">Расписание</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Редактирование урока: <span th:text="${lesson.classSubject.subject.name}"></span></h1>
+    <p><strong>Класс:</strong> <span th:text="${lesson.classSubject.schoolClass.grade + lesson.classSubject.schoolClass.literal}"></span></p>
+    <p><strong>Дата:</strong> <span th:text="${lesson.scheduleDay.date}"></span></p>
+
+    <!-- Форма домашнего задания -->
+    <form th:action="@{/teacher/lessons/{id}/homework(id=${lesson.id})}" method="post">
+        <label for="homework">Домашнее задание:</label><br>
+        <textarea id="homework" name="homeworkDescription" rows="4" cols="60"
+                  th:text="${lesson.homeworkDescription}"></textarea><br>
+        <button type="submit">Сохранить задание</button>
+    </form>
+
+    <hr>
+
+    <!-- Форма оценок -->
+    <form th:action="@{/teacher/lessons/{id}/marks(id=${lesson.id})}" method="post">
+        <table>
+            <thead>
+            <tr>
+                <th>Ученик</th>
+                <th>Оценка</th>
+                <th>Комментарий</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="studentMark : ${studentMarks}">
+                <td th:text="${studentMark.student.fullName}"></td>
+                <td>
+                    <input type="number" th:name="'marks[' + ${studentMark.student().id} + '].value'"
+                           min="1" max="5"
+                           th:value="${studentMark.mark != null ? studentMark.mark.markValue : ''}">
+                </td>
+                <td>
+                    <input type="text" th:name="'marks[' + ${studentMark.student.id} + '].comment'"
+                        th:value="${studentMark.mark != null ? studentMark.mark.comment : ''}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit">Сохранить оценки</button>
+    </form>
+
+</main>
+
+<footer>
+    <p>© 2025 EduDiary</p>
+</footer>
+
+</body>
+</html>

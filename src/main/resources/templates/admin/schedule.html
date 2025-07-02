@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Настройка расписания</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <style>
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .lesson-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .lesson-table td, .lesson-table th {
+            padding: 8px;
+        }
+        .submit-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/profile}">Профиль</a></li>
+            <li><a th:href="@{/admin/users}">Пользователи</a></li>
+            <li><a th:href="@{/admin/subjects}">Предметы</a></li>
+            <li><a th:href="@{/admin/classes}">Классы</a></li>
+            <li><a th:href="@{/admin/schedule}">Расписание</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="form-section">
+        <h1>Настройка расписания</h1>
+        <form id="scheduleForm">
+            <div class="form-group">
+                <label for="classSelect">Выберите класс:</label>
+                <select id="classSelect" name="classId" required>
+                    <option value="" disabled selected>Выберите класс</option>
+                    <option th:each="c : ${allClasses}" th:value="${c.id}"
+                            th:text="${c.grade + c.literal}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="daySelect">День недели:</label>
+                <select id="daySelect" name="dayOfWeek" required>
+                    <option th:each="day : ${T(java.time.DayOfWeek).values()}"
+                            th:value="${day}"
+                            th:text="${day.getDisplayName(T(java.time.format.TextStyle).FULL, T(java.util.Locale).forLanguageTag('ru'))}">
+                    </option>
+                </select>
+            </div>
+
+            <table class="lesson-table">
+                <tr th:each="i : ${#numbers.sequence(1,10)}">
+                    <td>Урок <span th:text="${i}"></span></td>
+                    <td>
+                        <select name="lesson_[[${i}]]" class="lesson-select">
+                            <option value="" selected disabled>Выберите предмет</option>
+
+
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="submit-section">
+                <button type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 EduDiary</p>
+</footer>
+
+<script>
+    const classSelect = document.getElementById("classSelect");
+    const lessonSelects = document.querySelectorAll(".lesson-select");
+
+    classSelect.addEventListener("change", function () {
+        const classId = this.value;
+        fetch(`/admin/classes/${classId}/subjects-list`)
+            .then(res => res.json())
+            .then(subjects => {
+                lessonSelects.forEach(select => {
+                    select.innerHTML = '<option value="" selected disabled>Выберите предмет</option>';
+                    subjects.forEach(subject => {
+                        const option = document.createElement('option');
+                        option.value = subject.id;
+                        option.text = subject.subjectName + ' (' + subject.teacherName + ')';
+                        select.appendChild(option);
+                    });
+                });
+            });
+    });
+
+    document.getElementById("scheduleForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const classId = classSelect.value;
+        const dayOfWeek = document.getElementById("daySelect").value;
+        const lessons = [];
+
+        lessonSelects.forEach((select, index) => {
+            if (select.value) {
+                lessons.push({
+                    lessonNumber: index + 1,
+                    classSubjectId: select.value
+                });
+            }
+        });
+
+        fetch("/api/schedule/generate?classId=" + classId + "&dayOfWeek=" + dayOfWeek, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(lessons)
+        }).then(res => {
+            if (res.ok) alert("Расписание сохранено");
+            else alert("Ошибка при сохранении расписания");
+        });
+    });
+</script>
+</body>
+</html>

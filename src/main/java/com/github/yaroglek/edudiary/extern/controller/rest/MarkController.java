@@ -20,8 +20,7 @@ public class MarkController {
 
     @PostMapping
     public ResponseEntity<MarkDto> createMark(@Valid @RequestBody MarkDto markDto) {
-        Mark mark = markAssembler.toEntity(markDto);
-        Mark saved = markService.create(mark);
+        Mark saved = markService.create(markAssembler.toEntity(markDto));
         return ResponseEntity.ok(markAssembler.toModel(saved));
     }
 

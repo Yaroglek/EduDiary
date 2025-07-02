@@ -7,14 +7,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Transactional
 @RequiredArgsConstructor
 public abstract class GenericUserService<T extends User> {
 
-    private final UserRepository userRepository;
+    protected final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final Class<T> tClass;
 
@@ -80,5 +82,22 @@ public abstract class GenericUserService<T extends User> {
         log.info("{} with id {} deleted", tClass.getSimpleName(), id);
         userRepository.deleteById(id);
     }
+
+    /**
+     * Метод, возвращающий всех пользователей.
+     *
+     * @return - все пользователи
+     */
+    //todo Не оч
+    public List<T> getAll() {
+        log.info("Get ALL {}", tClass.getSimpleName());
+
+        return userRepository.findAll().stream()
+                .filter(tClass::isInstance)
+                .map(tClass::cast)
+                .collect(Collectors.toList());
+    }
+
+
 }
 

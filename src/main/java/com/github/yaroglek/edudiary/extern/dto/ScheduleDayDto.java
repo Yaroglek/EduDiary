@@ -23,6 +23,6 @@ public class ScheduleDayDto extends RepresentationModel<ScheduleDayDto> {
     private Long schoolClassId;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Set<Long> lessonIds;
+    private Set<LessonDto> lessons;
 }
 

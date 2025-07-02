@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Классы</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <style>
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            z-index: 1000;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/profile}">Профиль</a></li>
+            <li><a th:href="@{/admin/users}">Пользователи</a></li>
+            <li><a th:href="@{/admin/subjects}">Предметы</a></li>
+            <li><a th:href="@{/admin/classes}">Классы</a></li>
+            <li><a th:href="@{/admin/schedule}">Расписание</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Классы школы</h1>
+
+    <button class="primary" onclick="showModal('createClassModal')">Создать класс</button>
+
+    <ul class="class-list">
+        <li th:each="schoolClass : ${classes}">
+            <a th:href="@{'/admin/classes/' + ${schoolClass.id}}"
+               th:text="${schoolClass.grade + schoolClass.literal}">Название класса</a>
+        </li>
+    </ul>
+</main>
+
+<!-- Модальное окно создания класса -->
+<div id="createClassModal" class="modal">
+    <div onclick="stopPropagation()">
+        <h2>Создать новый класс</h2>
+        <form th:action="@{/admin/classes/create}" method="post">
+            <label for="grade">Число (класс):</label>
+            <input type="number" id="grade" name="grade" min="1" max="11" required />
+
+            <label for="literal">Литерал (буква):</label>
+            <input type="text" id="literal" name="literal" maxlength="1" pattern="[A-Za-zА-Яа-я]" title="Одна буква" required />
+
+            <div class="modal-footer">
+                <button type="button" class="secondary" onclick="closeModal('createClassModal')">Отмена</button>
+                <button type="submit" class="primary">Создать</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+
+<script>
+    function showModal(id) {
+        document.getElementById(id).style.display = 'block';
+        document.getElementById('modalOverlay').style.display = 'block';
+    }
+    function closeModal(id) {
+        document.getElementById('createClassModal').style.display = 'none';
+        document.getElementById('modalOverlay').style.display = 'none';
+    }
+
+</script>
+
+<footer>
+    <p>© 2025 EduDiary</p>
+</footer>
+</body>
+</html>

@@ -7,11 +7,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"children"})
 @ToString(callSuper = true, exclude = {"children"})
 @Entity
 @DiscriminatorValue("PARENT")
+@NoArgsConstructor
 public class Parent extends User {
+    public Parent(String username, String email, String password, String fullName) {
+        super(username, email, password, fullName);
+    }
 
     @ManyToMany
     @JoinTable(
