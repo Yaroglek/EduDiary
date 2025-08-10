@@ -4,38 +4,7 @@
     <meta charset="UTF-8"/>
     <title>Оценки студента</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-    <style>
-        .scroll-container {
-            overflow-x: auto;
-            max-width: 100%;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        table {
-            border-collapse: collapse;
-            width: max-content;
-            min-width: 600px;
-        }
-        th, td {
-            border: 1px solid #aaa;
-            padding: 6px 10px;
-            text-align: center;
-            white-space: nowrap;
-        }
-        th {
-            background-color: #f0f0f0;
-            position: sticky;
-            top: 0;
-            z-index: 1;
-        }
-        th:first-child, td:first-child {
-            position: sticky;
-            left: 0;
-            background-color: #fafafa;
-            z-index: 2;
-            text-align: left;
-        }
-    </style>
+    <script th:src="@{/js/scripts.js}" defer></script>
 </head>
 <body>
 
@@ -72,7 +41,6 @@
             </tr>
             </tbody>
         </table>
-
     </div>
 </main>
 

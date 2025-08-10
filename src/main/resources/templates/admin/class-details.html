@@ -4,44 +4,6 @@
     <meta charset="UTF-8"/>
     <title th:text="'Класс ' + ${schoolClass.grade + schoolClass.literal}">Класс</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-    <style>
-        .student-list {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-        .student-list th, .student-list td {
-            border: 1px solid #ccc;
-            padding: 8px 12px;
-        }
-        .student-list th {
-            background-color: #f2f2f2;
-            font-weight: 600;
-            text-align: left;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            z-index: 1000;
-        }
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-    </style>
 </head>
 <body>
 <header>
@@ -61,28 +23,28 @@
     <h1 th:text="'Класс ' + ${schoolClass.grade + schoolClass.literal}">Класс</h1>
 
     <a th:href="@{'/admin/classes/' + ${schoolClass.id} + '/add-student'}">
-        <button class="primary">Добавить ученика</button>
+        <button class="btn primary">Добавить ученика</button>
     </a>
 
     <a th:href="@{'/admin/classes/' + ${schoolClass.id} + '/subjects'}">
-        <button class="secondary">Управлять предметами</button>
+        <button class="btn secondary">Управлять предметами</button>
     </a>
 
-    <table class="student-list">
+    <table>
         <thead>
         <tr>
             <th>Имя ученика</th>
-            <th class="actions">Действия</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="student : ${students}">
             <td th:text="${student.fullName}">Имя ученика</td>
             <td>
-                <form th:action="@{'/admin/classes/' + ${schoolClass.id} + '/remove-student/' + ${student.id}}" method="post" onsubmit="return confirm('Удалить ученика из класса?');" style="display:inline;">
-                    <button type="submit" class="danger">Удалить</button>
+                <form th:action="@{'/admin/classes/' + ${schoolClass.id} + '/remove-student/' + ${student.id}}" method="post" onsubmit="return confirm('Удалить ученика из класса?');">
+                    <button type="submit" class="btn danger">Удалить</button>
                 </form>
-                <button class="secondary" th:onclick="'openParentModal(' + ${student.id} + ')'">Родители</button>
+                <button class="btn secondary" th:onclick="'openParentModal(' + ${student.id} + ')'">Родители</button>
             </td>
         </tr>
         <tr th:if="${students.size() == 0}">
@@ -92,42 +54,33 @@
     </table>
 
     <div id="parentModal" class="modal">
-        <div>
-            <h2>Назначить родителя</h2>
-            <form id="parentForm" method="post" th:action="@{/admin/parents/assign}">
-                <input type="hidden" name="studentId" id="modalStudentId" />
-                <input type="hidden" name="classId" th:value="${schoolClass.id}" />
+        <h2>Назначить родителя</h2>
+        <form id="parentForm" method="post" th:action="@{/admin/parents/assign}">
+            <input type="hidden" name="studentId" id="modalStudentId" />
+            <input type="hidden" name="classId" th:value="${schoolClass.id}" />
 
+            <div class="form-group">
                 <label for="parentSelect">Выберите родителя:</label>
-                <select id="parentSelect" name="parentId">
+                <select class="input-field" id="parentSelect" name="parentId">
                     <option th:each="parent : ${parents}" th:value="${parent.id}" th:text="${parent.fullName}">Родитель</option>
                 </select>
+            </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="secondary" onclick="closeParentModal()">Отмена</button>
-                    <button type="submit" class="primary">Сохранить</button>
-                </div>
-            </form>
-
-        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn secondary" onclick="closeAllModals()">Отмена</button>
+                <button type="submit" class="btn primary">Сохранить</button>
+            </div>
+        </form>
     </div>
-    <div id="modalOverlay" class="modal-overlay" onclick="closeParentModal()"></div>
 </main>
+
+<div id="modalOverlay" class="modal-overlay" onclick="closeAllModals()"></div>
+
+<script th:src="@{/js/modals.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
 
 <footer>
     <p>© 2025 EduDiary</p>
 </footer>
-
-<script>
-    function openParentModal(studentId) {
-        document.getElementById('modalStudentId').value = studentId;
-        document.getElementById('parentModal').style.display = 'block';
-        document.getElementById('modalOverlay').style.display = 'block';
-    }
-    function closeParentModal() {
-        document.getElementById('parentModal').style.display = 'none';
-        document.getElementById('modalOverlay').style.display = 'none';
-    }
-</script>
 </body>
 </html>

@@ -6,7 +6,6 @@ import lombok.*;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "users")
 @NoArgsConstructor
 public abstract class User {

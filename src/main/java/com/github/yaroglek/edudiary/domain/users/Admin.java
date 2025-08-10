@@ -1,6 +1,5 @@
 package com.github.yaroglek.edudiary.domain.users;
 
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.*;
 
@@ -8,7 +7,6 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-@DiscriminatorValue("ADMIN")
 @NoArgsConstructor
 public class Admin extends User {
     public Admin(String username, String email, String password, String fullName) {

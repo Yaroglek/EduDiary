@@ -12,7 +12,6 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"parents", "marks", "schoolClass"})
 @ToString(callSuper = true, exclude = {"marks", "parents", "schoolClass"})
 @Entity
-@DiscriminatorValue("STUDENT")
 @NoArgsConstructor
 public class Student extends User {
     public Student(String username, String email, String password, String fullName) {

@@ -4,38 +4,6 @@
     <meta charset="UTF-8"/>
     <title>Оценки студента</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-    <style>
-        .scroll-container {
-            overflow-x: auto;
-            max-width: 100%;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        table {
-            border-collapse: collapse;
-            width: max-content;
-            min-width: 600px;
-        }
-        th, td {
-            border: 1px solid #aaa;
-            padding: 6px 10px;
-            text-align: center;
-            white-space: nowrap;
-        }
-        th {
-            background-color: #f0f0f0;
-            position: sticky;
-            top: 0;
-            z-index: 1;
-        }
-        th:first-child, td:first-child {
-            position: sticky;
-            left: 0;
-            background-color: #fafafa;
-            z-index: 2;
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
 
@@ -53,7 +21,6 @@
 <main>
     <h1>Оценки ребенка</h1>
 
-    <!-- Выпадающий список детей -->
     <form method="get" th:action="@{/parent/marks/view}">
         <label for="childSelect">Выберите ребенка: </label>
         <select name="selectedStudentId" id="childSelect" onchange="this.form.submit()">
@@ -66,7 +33,7 @@
     </form>
 
     <div class="scroll-container" style="margin-top: 20px;">
-        <table>
+        <table class="grades-table">
             <thead>
             <tr>
                 <th>Предмет</th>

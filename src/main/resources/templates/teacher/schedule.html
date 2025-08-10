@@ -4,25 +4,6 @@
     <meta charset="UTF-8"/>
     <title>Расписание учителя</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-    <style>
-        .week-schedule {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .day-schedule {
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        .lesson {
-            margin: 5px 0;
-            padding: 5px;
-            background-color: #f9f9f9;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 
@@ -39,10 +20,10 @@
 <main>
     <h1>Моё расписание на неделю</h1>
 
-    <div style="text-align: center; margin-bottom: 20px;">
-        <a th:href="@{/teacher/schedule/view(offset=${offset - 1})}" style="margin-right: 20px;">←</a>
+    <div class="week-navigation">
+        <a th:href="@{/teacher/schedule/view(offset=${offset - 1})}">←</a>
         <span th:text="${#temporals.format(weekStart, 'dd.MM.yy')} + ' - ' + ${#temporals.format(weekEnd, 'dd.MM.yy')}"></span>
-        <a th:href="@{/teacher/schedule/view(offset=${offset + 1})}" style="margin-left: 20px;">→</a>
+        <a th:href="@{/teacher/schedule/view(offset=${offset + 1})}">→</a>
     </div>
 
     <div class="week-schedule">
@@ -50,7 +31,6 @@
             <h2 th:text="${#temporals.format(day.date, 'EEEE')} + ' (' + ${#temporals.format(day.date, 'dd.MM.yyyy')} + ')'"></h2>
 
             <div th:each="lesson : ${day.lessons}">
-                <!-- Урок с предметом -->
                 <a th:if="${lesson.classSubject != null}"
                    th:href="@{'/teacher/lesson/' + ${lesson.id} + '/view'}"
                    class="lesson">
@@ -63,7 +43,6 @@
                     </p>
                 </a>
 
-                <!-- Пустой слот -->
                 <div class="lesson empty-lesson" th:if="${lesson.classSubject == null}">
                     <p><em>Нет урока</em></p>
                 </div>

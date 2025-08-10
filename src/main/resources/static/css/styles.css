@@ -1,0 +1,363 @@
+/* Базовые стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    color: #333;
+}
+
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+/* Шапка */
+header {
+    background-color: #34495e;
+    padding: 10px 0;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Футер */
+footer {
+    background-color: #34495e;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+/* Таблицы */
+.table, table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;
+    background: white;
+}
+
+.table th, table th,
+.table td, table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+}
+
+.table th, table th {
+    background-color: #f2f2f2;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Кнопки */
+button, .btn {
+    cursor: pointer;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.primary:hover {
+    background-color: #2980b9;
+}
+
+.secondary {
+    background-color: #bdc3c7;
+    color: #2c3e50;
+}
+
+.secondary:hover {
+    background-color: #95a5a6;
+}
+
+.danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.danger:hover {
+    background-color: #c0392b;
+}
+
+/* Модальные окна */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-radius: 6px;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+/* Списки */
+.list, .class-list {
+    list-style: none;
+    padding: 0;
+}
+
+.list li, .class-list li {
+    margin: 8px 0;
+}
+
+.list li a, .class-list li a {
+    text-decoration: none;
+    color: #3498db;
+}
+
+.list li a:hover, .class-list li a:hover {
+    text-decoration: underline;
+}
+
+/* Прокручиваемые контейнеры */
+.scroll-container {
+    overflow-x: auto;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: white;
+}
+
+/* Неделя расписания */
+.week-schedule {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.day-schedule {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: white;
+    border-radius: 4px;
+}
+
+/* Урок */
+.lesson {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.lesson:hover {
+    background-color: #ecf0f1;
+}
+
+.empty-lesson {
+    color: #888;
+    font-style: italic;
+}
+
+/* Специальные стили для таблицы оценок */
+.grades-table {
+    width: max-content;
+    min-width: 600px;
+}
+
+.grades-table th:first-child,
+.grades-table td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #fafafa;
+    z-index: 2;
+    text-align: left;
+}
+
+.grades-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* Стили для формы */
+form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+form select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Навигация по неделям */
+.week-navigation {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.week-navigation a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #3498db;
+}
+
+.week-navigation a:hover {
+    text-decoration: underline;
+}
+
+/* Элементы форм */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* TEacher */
+
+.input-field,
+textarea.input-field {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.input-field-small {
+    width: 60px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/*
+    Admin
+ */
+
+/* Специальные стили для списка предметов и учителей */
+.subject-item,
+.teacher-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.subject-item a {
+    font-weight: 600;
+}
+
+.subject-item:hover,
+.teacher-item:hover {
+    background-color: #ecf0f1;
+}
+
+/* Стили для модального окна */
+.modal-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.role-selection button {
+    margin: 5px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Настройка расписания */
+.form-section {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.form-section .form-group {
+    margin-bottom: 15px;
+}
+.lesson-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.lesson-table td, .lesson-table th {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+.submit-section {
+    text-align: center;
+    margin-top: 20px;
+}

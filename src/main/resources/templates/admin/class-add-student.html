@@ -4,30 +4,6 @@
     <meta charset="UTF-8"/>
     <title th:text="'Добавить ученика в класс ' + ${schoolClass.grade + schoolClass.literal}">Добавить ученика</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-    <style>
-        main {
-            max-width: 700px;
-            margin: 20px auto;
-            padding: 0 15px;
-            font-family: Arial, sans-serif;
-        }
-        .student-list {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-        .student-list th, .student-list td {
-            border: 1px solid #ccc;
-            padding: 8px 12px;
-        }
-        .student-list th {
-            background-color: #f2f2f2;
-            font-weight: 600;
-            text-align: left;
-        }
-
-    </style>
 </head>
 <body>
 <header>
@@ -48,19 +24,19 @@
 
     <h1 th:text="'Добавить ученика в класс ' + ${schoolClass.grade + schoolClass.literal}">Добавить ученика</h1>
 
-    <table class="student-list">
+    <table>
         <thead>
         <tr>
             <th>Имя ученика</th>
-            <th class="actions">Действия</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="student : ${studentsWithoutClass}">
             <td th:text="${student.fullName}">Имя ученика</td>
             <td>
-                <form th:action="@{'/admin/classes/' + ${schoolClass.id} + '/add-student/' + ${student.id}}" method="post" style="display:inline;">
-                    <button type="submit" class="primary">Добавить</button>
+                <form th:action="@{'/admin/classes/' + ${schoolClass.id} + '/add-student/' + ${student.id}}" method="post">
+                    <button type="submit" class="btn primary">Добавить</button>
                 </form>
             </td>
         </tr>

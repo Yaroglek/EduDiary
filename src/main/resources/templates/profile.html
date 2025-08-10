@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Профиль</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script th:src="@{/js/scripts.js}" defer></script>
 </head>
 <body>
 
@@ -39,10 +40,10 @@
     </table>
 
     <div th:if="${errorMessage}">
-        <p style="color:red;" th:text="${errorMessage}"></p>
+        <p class="danger" th:text="${errorMessage}"></p>
     </div>
     <div th:if="${successMessage}">
-        <p style="color:green;" th:text="${successMessage}"></p>
+        <p class="primary" th:text="${successMessage}"></p>
     </div>
 </main>
 
