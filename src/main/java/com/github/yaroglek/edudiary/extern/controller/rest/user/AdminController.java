@@ -15,16 +15,6 @@ public class AdminController extends GenericUserController<Admin, AdminDto, Admi
     }
 
     @Override
-    protected Admin toEntity(AdminDto dto) {
-        return assembler.toEntity(dto);
-    }
-
-    @Override
-    protected AdminDto toModel(Admin entity) {
-        return assembler.toModel(entity);
-    }
-
-    @Override
     protected String getEntityName() {
         return "Admin";
     }

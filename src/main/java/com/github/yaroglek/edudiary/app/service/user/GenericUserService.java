@@ -97,7 +97,4 @@ public abstract class GenericUserService<T extends User> {
                 .map(tClass::cast)
                 .collect(Collectors.toList());
     }
-
-
 }
-

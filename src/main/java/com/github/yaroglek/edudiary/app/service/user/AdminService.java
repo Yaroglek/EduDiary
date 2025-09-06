@@ -12,6 +12,7 @@ public class AdminService extends GenericUserService<Admin> {
         super(userRepository, passwordEncoder, Admin.class);
     }
 
+    //todo Плохо, но для быстрой демонстрации работы пойдет
     @PostConstruct
     private void createFirstSuperUser() {
         Admin superUser = new Admin();

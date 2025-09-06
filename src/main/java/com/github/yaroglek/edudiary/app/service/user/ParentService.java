@@ -3,7 +3,6 @@ package com.github.yaroglek.edudiary.app.service.user;
 import com.github.yaroglek.edudiary.app.repository.UserRepository;
 import com.github.yaroglek.edudiary.domain.users.Parent;
 import com.github.yaroglek.edudiary.domain.users.Student;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

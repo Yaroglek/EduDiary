@@ -34,14 +34,16 @@ public class SecurityConfig {
                                 "/api/schedule/**", "/api/classes/**",
                                 "/api/subjects/**").hasAuthority("ROLE_ADMIN")
 
+                        .requestMatchers("/api/marks/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEACHER")
+                        .requestMatchers(HttpMethod.PUT,
+                                "/api/lessons").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEACHER")
+
                         .requestMatchers("/admin/subjects/**", "/admin/classes/**",
                                 "/admin/users/**", "/admin/schedule/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/student/marks/**", "/student/schedule/**").hasAuthority("ROLE_STUDENT")
                         .requestMatchers("/parent/marks/**", "/parent/schedule/**").hasAuthority("ROLE_PARENT")
                         .requestMatchers("/teacher/schedule/**", "/teacher/lesson/**",
-                                "/teacher/lessons/**", "teacher/").hasAuthority("ROLE_TEACHER")
-
-                        .requestMatchers("/api/marks/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEACHER")
+                                "/teacher/lessons/**").hasAuthority("ROLE_TEACHER")
 
                         .anyRequest().authenticated()
                 )

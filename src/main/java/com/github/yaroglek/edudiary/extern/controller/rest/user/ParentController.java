@@ -29,16 +29,6 @@ public class ParentController extends GenericUserController<Parent, ParentDto, P
     }
 
     @Override
-    protected Parent toEntity(ParentDto dto) {
-        return assembler.toEntity(dto);
-    }
-
-    @Override
-    protected ParentDto toModel(Parent entity) {
-        return assembler.toModel(entity);
-    }
-
-    @Override
     protected String getEntityName() {
         return "Parent";
     }

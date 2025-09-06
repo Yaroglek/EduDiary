@@ -5,7 +5,8 @@ import com.github.yaroglek.edudiary.extern.dto.user.UserDto;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 
 public abstract class UserAssembler<T extends User, D extends UserDto<D>>
-        extends RepresentationModelAssemblerSupport<T, D> {
+        extends RepresentationModelAssemblerSupport<T, D>
+        implements UserDtoAssembler<T, D> {
 
     protected UserAssembler(Class<?> controllerClass, Class<D> dtoClass) {
         super(controllerClass, dtoClass);
